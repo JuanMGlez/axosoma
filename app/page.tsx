@@ -6,10 +6,26 @@ import { Code2, Gift, Globe } from 'lucide-react';
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     const handleMouse = (e: MouseEvent) => setMousePosition({ x: e.clientX, y: e.clientY });
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set(prev).add(entry.target.id));
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll('section[id]').forEach((section) => {
+      observer.observe(section);
+    });
     
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouse);
@@ -17,18 +33,19 @@ export default function Home() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouse);
+      observer.disconnect();
     };
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAFBFC]">
+    <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#FAFBFC]/60 backdrop-blur-3xl border-b border-[#E2E8F0]/50">
+      <nav className="fixed top-0 w-full z-50 bg-white/60 backdrop-blur-3xl border-b border-[#E2E8F0]/50">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12 py-6 flex justify-between items-center">
           <div className="flex items-center gap-2.5">
             <div className="relative w-9 h-9">
               <div className="absolute inset-0 bg-gradient-to-br from-[#0F766E] to-[#14B8A6] rounded-xl rotate-45" />
-              <div className="absolute inset-[3px] bg-[#FAFBFC] rounded-lg rotate-45" />
+              <div className="absolute inset-[3px] bg-white rounded-lg rotate-45" />
             </div>
             <span className="text-[26px] font-semibold text-[#0A0F1C] tracking-tight">AxoSoma</span>
           </div>
@@ -45,7 +62,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="inicio" className="relative min-h-screen flex items-center justify-center px-8 lg:px-12 pt-32 overflow-hidden">
+      <section id="inicio" className="relative min-h-screen flex items-center justify-center px-8 lg:px-12 pt-32 overflow-hidden bg-gradient-to-b from-[#FAFBFC] to-white">
         <div 
           className="absolute inset-0 opacity-40"
           style={{
@@ -56,36 +73,26 @@ export default function Home() {
         <div className="absolute top-0 right-0 w-[1200px] h-[1200px] bg-gradient-to-br from-[#14B8A6]/5 via-transparent to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-gradient-to-tr from-[#0F766E]/5 via-transparent to-transparent rounded-full blur-3xl" />
         
-        {/* Scroll-reactive shapes */}
+        {/* Subtle gradient orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div 
-            className="absolute top-[15%] left-[8%] w-32 h-32 border-2 border-[#14B8A6]/20 rounded-3xl"
-            style={{ transform: `translateY(${scrollY * 0.15}px) rotate(${scrollY * 0.05}deg)` }}
+            className="absolute top-[20%] right-[15%] w-[400px] h-[400px] bg-gradient-to-br from-[#14B8A6]/10 to-transparent rounded-full blur-3xl"
+            style={{ transform: `translateY(${scrollY * 0.1}px)` }}
           />
           <div 
-            className="absolute top-[50%] right-[12%] w-24 h-24 border-2 border-[#0F766E]/15 rounded-full"
-            style={{ transform: `translateY(${scrollY * -0.2}px) scale(${1 + scrollY * 0.0005})` }}
-          />
-          <div 
-            className="absolute bottom-[20%] left-[15%] w-20 h-20 border-2 border-[#2DD4BF]/20 rounded-2xl"
-            style={{ transform: `translateY(${scrollY * 0.1}px) rotate(${scrollY * -0.08}deg)` }}
-          />
-          <div 
-            className="absolute top-[35%] right-[25%] w-16 h-16 bg-[#14B8A6]/5 rounded-full blur-xl"
-            style={{ transform: `translateY(${scrollY * 0.25}px)` }}
-          />
-          <div 
-            className="absolute top-[65%] left-[45%] w-28 h-28 border border-[#0F766E]/10 rounded-full"
-            style={{ transform: `translateY(${scrollY * -0.12}px) rotate(${scrollY * 0.03}deg)` }}
+            className="absolute bottom-[15%] left-[10%] w-[350px] h-[350px] bg-gradient-to-tr from-[#0F766E]/8 to-transparent rounded-full blur-3xl"
+            style={{ transform: `translateY(${scrollY * -0.15}px)` }}
           />
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto w-full">
           <div className="max-w-[900px] mx-auto lg:mx-0">
-            <h1 className="text-[clamp(3.5rem,8vw,7rem)] font-bold mb-8 text-[#0A0F1C] leading-[0.95] tracking-tight">
-              <span className="bg-gradient-to-r from-[#0F766E] via-[#14B8A6] to-[#2DD4BF] bg-clip-text text-transparent">
+            <h1 className="text-[clamp(3.5rem,8vw,7rem)] font-bold mb-8 leading-[0.95] tracking-tight">
+              <span className="text-[#0A0F1C]">
                 Cuidado continuo,
-                <br />
+              </span>
+              <br />
+              <span className="text-[#0F766E]">
                 vida plena
               </span>
             </h1>
@@ -108,9 +115,9 @@ export default function Home() {
       </section>
 
       {/* Platform Section */}
-      <section id="plataforma" className="py-32 lg:py-40 px-8 lg:px-12 relative">
+      <section id="plataforma" className="py-40 px-8 lg:px-12 relative bg-gradient-to-b from-white to-[#F8FAFB]">
         <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-24">
+          <div className={`text-center mb-24 transition-all duration-1000 ${visibleSections.has('plataforma') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
             <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-bold text-[#0A0F1C] mb-6 tracking-tight">
               Todo lo que necesitas
             </h2>
@@ -124,41 +131,47 @@ export default function Home() {
               {
                 title: 'Seguimiento Simple',
                 desc: 'Registra tus mediciones en segundos. Sin complicaciones, sin formularios eternos.',
-                gradient: 'from-[#0F766E] to-[#14B8A6]'
+                color: '#0F766E'
               },
               {
                 title: 'Insights Inteligentes',
                 desc: 'Descubre patrones en tu salud con visualizaciones claras que realmente entiendes.',
-                gradient: 'from-[#14B8A6] to-[#2DD4BF]'
+                color: '#14B8A6'
               },
               {
                 title: 'Alertas Personalizadas',
                 desc: 'Recibe notificaciones cuando realmente importa, no spam constante.',
-                gradient: 'from-[#2DD4BF] to-[#5EEAD4]'
+                color: '#0F766E'
               },
               {
                 title: 'Comparte con tu Médico',
                 desc: 'Exporta reportes profesionales en un clic para tus consultas.',
-                gradient: 'from-[#0F766E] to-[#14B8A6]'
+                color: '#14B8A6'
               },
               {
                 title: 'Comunidad Real',
                 desc: 'Conecta con personas que entienden lo que vives día a día.',
-                gradient: 'from-[#14B8A6] to-[#2DD4BF]'
+                color: '#0F766E'
               },
               {
                 title: 'Educación Continua',
                 desc: 'Aprende sobre tu condición con contenido verificado y actualizado.',
-                gradient: 'from-[#2DD4BF] to-[#5EEAD4]'
+                color: '#14B8A6'
               }
             ].map((item, i) => (
               <div 
                 key={i}
-                className="group p-10 rounded-[32px] bg-white border border-[#E2E8F0] hover:border-[#14B8A6]/30 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+                className={`group p-10 rounded-[32px] bg-white border-2 border-[#E2E8F0] hover:border-[#0F766E] transition-all duration-700 hover:shadow-xl hover:-translate-y-1 ${visibleSections.has('plataforma') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+                style={{ transitionDelay: visibleSections.has('plataforma') ? `${i * 100}ms` : '0ms' }}
               >
-                <div className={`w-12 h-1.5 bg-gradient-to-r ${item.gradient} rounded-full mb-6`} />
-                <h3 className="text-[24px] font-bold text-[#0A0F1C] mb-4 tracking-tight">{item.title}</h3>
-                <p className="text-[16px] text-[#64748B] leading-relaxed">{item.desc}</p>
+                <div 
+                  className="w-12 h-12 rounded-2xl mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+                  style={{ backgroundColor: `${item.color}15` }}
+                >
+                  <div className="w-6 h-6 rounded-lg transition-all duration-300 group-hover:scale-90" style={{ backgroundColor: item.color }} />
+                </div>
+                <h3 className="text-[22px] font-bold text-[#0A0F1C] mb-3 tracking-tight">{item.title}</h3>
+                <p className="text-[15px] text-[#64748B] leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -166,14 +179,15 @@ export default function Home() {
       </section>
 
       {/* Impact Section */}
-      <section id="impacto" className="py-32 lg:py-40 px-8 lg:px-12 bg-gradient-to-br from-[#0F766E] via-[#14B8A6] to-[#2DD4BF] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+      <section id="impacto" className="py-32 lg:py-40 px-8 lg:px-12 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0D6560] via-[#0F766E] to-[#14B8A6]" />
+        <div className="absolute inset-0 opacity-[0.07]">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')]" />
         </div>
 
         <div className="relative max-w-[1400px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-            <div className="text-white">
+            <div className={`text-white transition-all duration-1000 ${visibleSections.has('impacto') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
               <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-bold mb-8 tracking-tight">
                 Impacto real en vidas reales
               </h2>
@@ -194,8 +208,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative">
-              <div className="bg-white/10 backdrop-blur-2xl rounded-[40px] p-12 border border-white/20">
+            <div className={`relative transition-all duration-1000 delay-300 ${visibleSections.has('impacto') ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+              <div className="bg-white/10 backdrop-blur-xl rounded-[32px] p-10 border border-white/20 shadow-2xl">
                 <div className="space-y-8">
                   <div className="flex items-start gap-5">
                     <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center flex-shrink-0">
@@ -241,14 +255,16 @@ export default function Home() {
       </section>
 
       {/* Open Source Section */}
-      <section id="opensource" className="py-32 lg:py-40 px-8 lg:px-12">
+      <section id="opensource" className="py-40 px-8 lg:px-12 bg-gradient-to-b from-[#F8FAFB] to-[#E8EDEF]">
         <div className="max-w-[1200px] mx-auto text-center">
-          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-bold text-[#0A0F1C] mb-8 tracking-tight">
-            Construido en comunidad
-          </h2>
-          <p className="text-[20px] text-[#475569] mb-16 max-w-[700px] mx-auto font-light leading-relaxed">
-            AxoSoma es completamente open source. Cada línea de código es transparente, auditable y mejorable por la comunidad global.
-          </p>
+          <div className={`transition-all duration-1000 ${visibleSections.has('opensource') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+            <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-bold text-[#0A0F1C] mb-8 tracking-tight">
+              Construido en comunidad
+            </h2>
+            <p className="text-[20px] text-[#475569] mb-16 max-w-[700px] mx-auto font-light leading-relaxed">
+              AxoSoma es completamente open source. Cada línea de código es transparente, auditable y mejorable por la comunidad global.
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {[
@@ -273,7 +289,11 @@ export default function Home() {
             ].map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="p-10 rounded-[32px] bg-white border border-[#E2E8F0] hover:border-[#14B8A6]/30 transition-all hover:shadow-xl">
+                <div 
+                  key={i} 
+                  className={`p-10 rounded-[32px] bg-white border border-[#E2E8F0] hover:border-[#14B8A6]/30 transition-all duration-700 hover:shadow-xl ${visibleSections.has('opensource') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+                  style={{ transitionDelay: visibleSections.has('opensource') ? `${i * 150}ms` : '0ms' }}
+                >
                   <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} mb-6 flex items-center justify-center mx-auto`}>
                     <Icon className="w-8 h-8 text-white" strokeWidth={2} />
                   </div>
@@ -291,13 +311,14 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 lg:py-40 px-8 lg:px-12 bg-[#0A0F1C] relative overflow-hidden">
+      <section id="cta" className="py-40 px-8 lg:px-12 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#D1D8DD] via-[#475569] to-[#0A0F1C]" />
         <div className="absolute inset-0">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-[#14B8A6]/20 to-transparent rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-[#0F766E]/20 to-transparent rounded-full blur-3xl" />
         </div>
 
-        <div className="relative max-w-[900px] mx-auto text-center text-white">
+        <div className={`relative max-w-[900px] mx-auto text-center text-white transition-all duration-1000 ${visibleSections.has('cta') ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold mb-8 tracking-tight">
             Comienza tu viaje hacia una mejor salud
           </h2>
@@ -312,9 +333,9 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 lg:py-20 px-8 lg:px-12 bg-[#0A0F1C] border-t border-white/5">
+      <footer className="py-20 px-8 lg:px-12 bg-[#0A0F1C]">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-5 gap-12 mb-16">
+          <div className="grid md:grid-cols-5 gap-12 mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2.5 mb-5">
                 <div className="relative w-9 h-9">
