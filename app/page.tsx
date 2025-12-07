@@ -62,7 +62,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="inicio" className="relative min-h-screen flex items-center justify-center px-8 lg:px-12 pt-32 overflow-hidden bg-gradient-to-b from-[#FAFBFC] to-white">
+      <section id="inicio" className="relative min-h-screen flex items-center justify-center px-8 lg:px-12 pt-32 overflow-hidden bg-white">
         <div 
           className="absolute inset-0 opacity-40"
           style={{
@@ -115,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* Platform Section */}
-      <section id="plataforma" className="py-40 px-8 lg:px-12 relative bg-gradient-to-b from-white to-[#F8FAFB]">
+      <section id="plataforma" className="py-40 px-8 lg:px-12 relative bg-white">
         <div className="max-w-[1400px] mx-auto">
           <div className={`text-center mb-24 transition-all duration-1000 ${visibleSections.has('plataforma') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
             <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-bold text-[#0A0F1C] mb-6 tracking-tight">
@@ -179,19 +179,19 @@ export default function Home() {
       </section>
 
       {/* Impact Section */}
-      <section id="impacto" className="py-32 lg:py-40 px-8 lg:px-12 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0D6560] via-[#0F766E] to-[#14B8A6]" />
+      <section id="impacto" className="py-32 lg:py-40 px-8 lg:px-12 relative overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#F0FDFA] via-[#CCFBF1] to-[#99F6E4] opacity-40" />
         <div className="absolute inset-0 opacity-[0.07]">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')]" />
         </div>
 
         <div className="relative max-w-[1400px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-            <div className={`text-white transition-all duration-1000 ${visibleSections.has('impacto') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+            <div className={`text-[#0A0F1C] transition-all duration-1000 ${visibleSections.has('impacto') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
               <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-bold mb-8 tracking-tight">
                 Impacto real en vidas reales
               </h2>
-              <p className="text-[20px] mb-12 opacity-95 leading-relaxed font-light">
+              <p className="text-[20px] text-[#475569] mb-12 leading-relaxed font-light">
                 Comenzamos en México con la misión de ayudar a millones de personas con enfermedades crónicas. Nuestro objetivo: expandirnos globalmente y democratizar el acceso a herramientas de salud de calidad.
               </p>
               <div className="space-y-6">
@@ -201,50 +201,50 @@ export default function Home() {
                   { label: 'Países', value: '8' }
                 ].map((stat, i) => (
                   <div key={i} className="flex items-baseline gap-4">
-                    <div className="text-[48px] font-bold">{stat.value}</div>
-                    <div className="text-[18px] opacity-90">{stat.label}</div>
+                    <div className="text-[48px] font-bold text-[#0F766E]">{stat.value}</div>
+                    <div className="text-[18px] text-[#64748B]">{stat.label}</div>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className={`relative transition-all duration-1000 delay-300 ${visibleSections.has('impacto') ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
-              <div className="bg-white/10 backdrop-blur-xl rounded-[32px] p-10 border border-white/20 shadow-2xl">
+              <div className="bg-white/90 backdrop-blur-xl rounded-[32px] p-10 border border-[#E2E8F0] shadow-2xl">
                 <div className="space-y-8">
                   <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center flex-shrink-0">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <div className="w-14 h-14 rounded-2xl bg-[#0F766E]/10 flex items-center justify-center flex-shrink-0">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0F766E" strokeWidth="2">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                         <polyline points="22 4 12 14.01 9 11.01" />
                       </svg>
                     </div>
-                    <div className="text-white">
+                    <div className="text-[#0A0F1C]">
                       <div className="text-[20px] font-semibold mb-2">Diabetes Tipo 1 y 2</div>
-                      <div className="text-[15px] opacity-90">Monitoreo glucémico adaptado a tu tipo de diabetes</div>
+                      <div className="text-[15px] text-[#64748B]">Monitoreo glucémico adaptado a tu tipo de diabetes</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center flex-shrink-0">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <div className="w-14 h-14 rounded-2xl bg-[#0F766E]/10 flex items-center justify-center flex-shrink-0">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0F766E" strokeWidth="2">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                         <polyline points="22 4 12 14.01 9 11.01" />
                       </svg>
                     </div>
-                    <div className="text-white">
+                    <div className="text-[#0A0F1C]">
                       <div className="text-[20px] font-semibold mb-2">Hipertensión Arterial</div>
-                      <div className="text-[15px] opacity-90">Control de presión arterial con alertas inteligentes</div>
+                      <div className="text-[15px] text-[#64748B]">Control de presión arterial con alertas inteligentes</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center flex-shrink-0">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <div className="w-14 h-14 rounded-2xl bg-[#0F766E]/10 flex items-center justify-center flex-shrink-0">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0F766E" strokeWidth="2">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                         <polyline points="22 4 12 14.01 9 11.01" />
                       </svg>
                     </div>
-                    <div className="text-white">
+                    <div className="text-[#0A0F1C]">
                       <div className="text-[20px] font-semibold mb-2">Todas las Edades</div>
-                      <div className="text-[15px] opacity-90">Desde jóvenes con diabetes tipo 1 hasta adultos mayores</div>
+                      <div className="text-[15px] text-[#64748B]">Desde jóvenes con diabetes tipo 1 hasta adultos mayores</div>
                     </div>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ export default function Home() {
       </section>
 
       {/* Open Source Section */}
-      <section id="opensource" className="py-40 px-8 lg:px-12 bg-gradient-to-b from-[#F8FAFB] to-[#E8EDEF]">
+      <section id="opensource" className="py-40 px-8 lg:px-12 bg-white">
         <div className="max-w-[1200px] mx-auto text-center">
           <div className={`transition-all duration-1000 ${visibleSections.has('opensource') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
             <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-bold text-[#0A0F1C] mb-8 tracking-tight">
@@ -311,8 +311,8 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section id="cta" className="py-40 px-8 lg:px-12 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#D1D8DD] via-[#475569] to-[#0A0F1C]" />
+      <section id="cta" className="py-40 px-8 lg:px-12 relative overflow-hidden bg-[#0F766E]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0F766E] to-[#14B8A6]" />
         <div className="absolute inset-0">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-[#14B8A6]/20 to-transparent rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-[#0F766E]/20 to-transparent rounded-full blur-3xl" />
